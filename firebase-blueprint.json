@@ -1,0 +1,140 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered developer or admin user authenticated via Google OAuth with per-user API key and quota settings.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified Google account email address",
+          "maxLength": 254
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name from Google profile",
+          "maxLength": 120
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User avatar URL from Google profile",
+          "maxLength": 500
+        },
+        "role": {
+          "type": "string",
+          "description": "Access control role",
+          "enum": ["user", "admin"],
+          "maxLength": 20
+        },
+        "plan": {
+          "type": "string",
+          "description": "API quota tier",
+          "enum": ["free", "pro", "admin_unlimited"],
+          "maxLength": 32
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Unique API key assigned to the user",
+          "maxLength": 80,
+          "pattern": "^kmk_[a-zA-Z0-9_]+$"
+        },
+        "dailyLimit": {
+          "type": "integer",
+          "description": "Daily request quota (-1 for unlimited admin access)"
+        },
+        "requestsToday": {
+          "type": "integer",
+          "description": "API requests consumed in the current day window"
+        },
+        "requestsTotal": {
+          "type": "integer",
+          "description": "Cumulative API requests served for this user"
+        },
+        "status": {
+          "type": "string",
+          "description": "Account API status",
+          "enum": ["active", "suspended"],
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of user registration"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last profile or key update"
+        },
+        "lastLoginAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of most recent Google login"
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "displayName",
+        "photoURL",
+        "role",
+        "plan",
+        "apiKey",
+        "dailyLimit",
+        "requestsToday",
+        "requestsTotal",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "lastLoginAt"
+      ]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Trusted admin role registry document keyed by Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the admin",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified admin email",
+          "maxLength": 254
+        },
+        "grantedBy": {
+          "type": "string",
+          "description": "UID of the admin who granted this role",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of role grant"
+        }
+      },
+      "required": ["uid", "email", "grantedBy", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Per-user profiles, Google OAuth identity metadata, API keys, and quota limits."
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Registry of users granted admin privileges."
+    }
+  }
+}

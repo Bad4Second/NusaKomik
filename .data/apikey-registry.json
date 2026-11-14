@@ -1,0 +1,17 @@
+[
+  {
+    "apiKey": "kmk_demo_nusakomik_id_2026",
+    "uid": "sandbox-demo",
+    "email": "sandbox@nusakomik.id",
+    "displayName": "Sandbox Demo",
+    "role": "user",
+    "plan": "free",
+    "dailyLimit": 250,
+    "requestsToday": 36,
+    "requestsTotal": 36,
+    "usageDate": "2026-11-14",
+    "status": "active",
+    "lastUsedAt": "2026-11-14T16:19:19.913Z",
+    "lastUserAgent": "node"
+  }
+]

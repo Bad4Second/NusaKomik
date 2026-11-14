@@ -1,0 +1,6 @@
+{
+  "name": "NusaKomik API",
+  "description": "Platform penyedia REST API baca manga, manhwa, dan manhua bahasa Indonesia terupdate, terpopuler, dan trending dengan sistem caching efisien, proteksi anti-403 untuk cURL, autentikasi Google OAuth, API Key per pengguna, serta dashboard admin.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
